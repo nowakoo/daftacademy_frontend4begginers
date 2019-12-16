@@ -75,10 +75,6 @@ PRZYCISKI
     margin-top: 20px;
 }
 
-.hamburger-menu {
-    display: none;
-}
-
 /*
 ######################################
 FORMULARZE
@@ -286,24 +282,6 @@ SEKCJA "CONCERTS"
     letter-spacing: 3.8px;
 }
 
-.concerts__button-hide {
-    display: none;
-}
-
-.concerts__message {
-    padding: 7px 15px;
-    /* line-height: 40px;
-    vertical-align: center; */
-    margin: 0 20px 0 0;
-    /* height: 40px; */
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1.6px;
-    text-align: center;
-    color: rgba(204, 200, 255, 0.8);
-}
-
 /*
 ######################################
 SEKCJA "VIDEO"
@@ -352,7 +330,35 @@ SEKCJA "PHOTOS"
         margin: 0;
     }
 }
+@keyframes photo_animation {
+    0% {
+        transform: scale(1) rotate(0);
+    }
+    50% {
+        transform: scale(1.5) rotate(360deg);
+    }
+    100% {
+        transform:  scale(1);
+    }
+}
 
+@keyframes photo_color {
+    from {
+        filter: grayscale(100%);
+    }
+    to {
+        filter: grayscale(0%);
+    }
+}
+.gallery__image {
+    animation-name: photo_color;
+    animation-duration: 3s;
+    animation-timing-function: ease;
+    animation-fill-mode: backwards;
+}
+.gallery__image:hover {
+    animation: photo_animation 3s ease;
+}
 /*
 ######################################
 SEKCJA "CONTACT"
@@ -378,6 +384,10 @@ SEKCJA "CONTACT"
 .contact__form {
     flex-basis: 50%;
     padding-top: 40px;
+}
+
+.menu-button {
+    display: none;
 }
 
 
@@ -444,18 +454,6 @@ SEKCJA "CONTACT"
         text-align: center;
     }
 
-    .page-navigation {
-        display: none;
-    }
-
-    .page-navigation-displayed {
-        display: block;
-    }
-
-
-    .hamburger-menu {
-        display: block;
-    }
     /*
     ######################################
     LINKI DO SOCIAL MEDIA
@@ -494,7 +492,6 @@ SEKCJA "CONTACT"
     .content-section__body {
         flex-grow: 1;
     }
-
 
     /*
     ######################################
@@ -583,11 +580,6 @@ SEKCJA "CONTACT"
         margin: 16px;
     }
 
-    .concerts__message {
-        margin: 0;
-        padding: 10px 15px 7px 15px;
-    }
-
     /*
     ######################################
     SEKCJA "VIDEO"
@@ -644,4 +636,88 @@ SEKCJA "CONTACT"
         padding: 0;
         line-height: 1.77;
     }
+
+    .menu-button {
+        padding: 10px;
+        display: inline-block;
+        cursor: pointer;
+        background-color: transparent;
+        border: 0;
+        margin: 0;
+    }
+
+
+    .page-navigation {
+        display: block;
+        filter: opacity(0);
+        height: 0;
+        overflow: hidden;
+    }
+
+    .menu-button {
+        transition: transform 0.3s 0.1s ease-in-out;
+    }
+
+    .page-navigation{
+        transition: height 0.5s 0.1s ease-in-out;
+        transition: filter 0.7s 0.1s ease-in-out;
+    }
+
+
+    .hamburger__box {
+        width: 35px;
+        height: 24px;
+        display: inline-block;
+        position: relative;
+    }
+
+    .hamburger__inner {
+        width: 100%;
+        height: 3px;
+        background-color: #ffffff;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: background-color 0.1s 0.2s ease-in-out;
+    }
+
+    .hamburger__inner::before,
+    .hamburger__inner::after {
+        width: 100%;
+        height: 3px;
+        background-color: #ffffff;
+        position: absolute;
+        content: "";
+        left: 0;
+        transition: transform 0.2s 0.2s ease-in-out;
+    }
+
+    .hamburger__inner::before {
+        top: -10px;
+    }
+
+    .hamburger__inner::after {
+        top: 10px;
+    }
+
+    .hamburger--active .hamburger__inner {
+        background-color: transparent;
+    }
+
+    .hamburger--active .hamburger__inner:before {
+          transform: translateY(10px) rotate(45deg);
+        }
+
+    .hamburger--active .hamburger__inner:after {
+          transform: translateY(-10px) rotate(-45deg);
+    }
+
+    .page-navigation--visible{
+        display: block;
+        height: 100%;
+        filter: opacity(1);
+    }
+
+
 }

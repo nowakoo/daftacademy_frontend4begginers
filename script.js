@@ -1,29 +1,36 @@
-const hambButton = document.querySelector('#hamburger')
-const nav = document.querySelector('#navigation')
+// Show/hide page navigation
+const menuButton = document.querySelector('#hamburger');
 
-hambButton.addEventListener ('click', () => {
-    nav.classList.toggle('page-navigation-displayed');
-})
+menuButton.addEventListener('click', (e) => {
+    const pageNavigation = document.querySelector('.page-navigation');
+    pageNavigation.classList.toggle('page-navigation--visible');
+    menuButton.classList.toggle('hamburger--active');
+});
 
+// Mark ticket as bought
+const concerts = document.querySelector('#concerts');
 
-const concertButtons = document.querySelectorAll('.concerts__button')
+concerts.addEventListener('click', (e) => {
+    if (e.target.classList.contains('button--buy-ticket')) {
+        const buyTicketButton = e.target;
+        const haveFunText = document.createElement('p');
+        haveFunText.textContent = 'Have fun!';
 
+        const buttonContainer = buyTicketButton.parentElement;
+        buttonContainer.insertBefore(haveFunText, buyTicketButton);
+        buyTicketButton.remove();
+        // OR
+        // buyTicketButton.replaceWith(haveFunText);
+    }
+});
 
-concertButtons.forEach(button => {
-    button.addEventListener ('click', () => {
-        const container = button.parentElement;
-        const paragraph = document.createElement('p');
-        paragraph.textContent = ('Have Fun!');
-        paragraph.classList.add('concerts__message');
-        container.append(paragraph);
-        button.remove();
-    })
-})
+// Log form data
+const contactForm = document.querySelector('.contact__form');
 
-const submitForm = document.querySelector('.contact__form')
-submitForm.addEventListener('submit', (e) => {
+contactForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    const data = new FormData(submitForm);
-    console.log(Object.fromEntries(data));
-})
+    const formData = new FormData(e.target);
+    const formObject = Object.fromEntries(formData);
+    console.log(formObject);
+});
 
